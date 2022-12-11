@@ -70,13 +70,9 @@ namespace DelegatesAndEvents
         public bool Remove(TItem item)
         {
             var removedIndex = this.elements.IndexOf(item);
-
             if (removedIndex >= 0)
             {
-                var removedItem = this.elements[removedIndex];
-                this.elements.RemoveAt(removedIndex);
-                this.ElementRemoved?.Invoke(this, removedItem, removedIndex);
-
+                RemoveAt(removedIndex);
                 return true;
             }
 
@@ -102,10 +98,8 @@ namespace DelegatesAndEvents
         }
 
         /// <inheritdoc cref="IEquatable{T}.Equals(T)" />
-        public bool Equals(ObservableList<TItem> other)
-        {
-            return this.elements.Equals(other.elements);
-        }
+        public bool Equals(ObservableList<TItem> other) => 
+            this.elements.Equals(other.elements);
 
         /// <inheritdoc cref="object.Equals(object?)" />
         public override bool Equals(object obj)
@@ -132,9 +126,7 @@ namespace DelegatesAndEvents
         public override int GetHashCode() => this.elements.GetHashCode();
 
         /// <inheritdoc cref="object.ToString" />
-        public override string ToString()
-        {
-            return "[" + string.Join(", ", this.elements) + "]";
-        }
+        public override string ToString() => 
+            $"[{string.Join(", ", this.elements)}]";
     }
 }
